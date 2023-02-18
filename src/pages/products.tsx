@@ -54,7 +54,7 @@ export default function Products({ data } : IProps ) {
             products ? 
             <table className={ styles.Table } >
                 {
-                  Object.keys(products[0]).map( key => <th onClick={ e => changeSortState(key) } className={ sort.key == key ? styles.SelectedCell : styles.CellHead } >
+                  Object.keys(products[0]).map( key => <th key={key} onClick={ e => changeSortState(key) } className={ sort.key == key ? styles.SelectedCell : styles.CellHead } >
                     <div className={styles.row}>
                       { key }  
                       <div>
