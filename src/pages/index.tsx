@@ -7,8 +7,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home() {
-  const router = useRouter();
-  router.push('/products?page=1&limit=5', undefined, { shallow: false })
   return (
     <>
     </>
@@ -28,6 +26,8 @@ export const getServerSideProps : GetServerSideProps = async (context) =>{
       res.end();
       throw new Error('User authentication failed');
     }
+    res.writeHead(302, {location: '/products?page=1&limit=5'})
+    res.end();
     return{ 
       props: {}
     }

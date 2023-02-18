@@ -26,10 +26,8 @@ export interface IPageContext{
 
 export default function Products({ data } : IProps ) {
 
-
   const [ sort, setSort ] = useState<ISort>({ key: 'id', asc : true });
   const router = useRouter()
-  const [ products, setProducts ] = useState(data);
   const { page, limit } = router.query;
   const productKeys = ['id', 'name', 'cost', 'quantity', 'location', 'family']
 
@@ -44,8 +42,10 @@ export default function Products({ data } : IProps ) {
     const currentPage = Number(page || 1);
     const sliceStart = (currentPage * 5) - 5;
     const sliceEnd = currentPage * 5;
-    return products.slice( sliceStart, sliceEnd )
+    return data.slice( sliceStart, sliceEnd )
   }
+
+  const [ products, setProducts ] = useState(getProducts());
 
   return (
     <>
@@ -86,7 +86,7 @@ export default function Products({ data } : IProps ) {
             {
             products && <div className={styles.SelectorRow}>
               <div></div>
-              <Pages lastPage={ Number(page) * 5 >= Number(limit) } page={Number(page)|| 1} updatePage={ ( newPage : number ) => router.push(`/products?page=${newPage}&limit=${limit || 5}`, `/products?page=${newPage}&limit=${limit || 5}`, { shallow: false })} />
+              <Pages lastPage={ Number(page) * 5 >= Number(limit) } page={Number(page)|| 1} updatePage={ ( newPage : number ) => router.push(`/products?page=${newPage}&limit=${limit || 5}`, `/products?page=${newPage}&limit=${limit || 5}`, { shallow: true })} />
               <select onChange={event => router.push(`/products?page=${page || 1}&limit=${event.target.value}`, `/products?page=${page || 1}&limit=${event.target.value}`, { shallow: false }  )} name="" id="">
                 <option value={5}>5</option>
                 <option value={10}>10</option>
@@ -114,7 +114,6 @@ export const getServerSideProps : GetServerSideProps = async (context) =>{
       throw new Error('User token expired');
     }
     const response = await fetchProducts( query.page?.toString() || '1', query.limit?.toString() || '5', jwt );
-    console.log(response)
     const data = JSON.parse(JSON.stringify({ response }))
     return{ props: {
       data : data.response
