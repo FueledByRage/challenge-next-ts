@@ -44,9 +44,6 @@ export default function Products({ data } : IProps ) {
     const currentPage = Number(page);
     const sliceStart = (currentPage * 5) - 5;
     const sliceEnd = currentPage * 5;
-    console.log(`${sliceStart} ${sliceEnd}`)
-    console.log(products);
-    console.log(products.slice( sliceStart,products.length ))
     return products.slice( sliceStart, sliceEnd )
   }
 
@@ -116,7 +113,6 @@ export const getServerSideProps : GetServerSideProps = async (context) =>{
       res.end();
       throw new Error('User token expired');
     }
-    console.log(query);
     const response = await fetchProducts( query.page?.toString() || '1', query.limit?.toString() || '5', jwt );
 
     const data = JSON.parse(JSON.stringify({ response }))
