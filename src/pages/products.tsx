@@ -31,7 +31,7 @@ export default function Products({ data } : IProps ) {
   const router = useRouter()
   const [ products, setProducts ] = useState(data);
   const { page, limit } = router.query;
-  console.log(products);
+  const productKeys = ['id', 'name', 'cost', 'quantity', 'location', 'family']
 
   const changeSortState = ( key : string) =>{
     const asc = sort.key != key ? true : !sort.asc
@@ -40,8 +40,8 @@ export default function Products({ data } : IProps ) {
     setSort({ key, asc });
   }
   const getProducts = () =>{
-    const pageLimit = Number(limit);
-    const currentPage = Number(page);
+    const pageLimit = Number(limit || 5);
+    const currentPage = Number(page || 1);
     const sliceStart = (currentPage * 5) - 5;
     const sliceEnd = currentPage * 5;
     return products.slice( sliceStart, sliceEnd )
@@ -54,7 +54,7 @@ export default function Products({ data } : IProps ) {
             products ? 
             <table className={ styles.Table } >
                 {
-                  Object.keys(products[0]).map( key => <th key={key} onClick={ e => changeSortState(key) } className={ sort.key == key ? styles.SelectedCell : styles.CellHead } >
+                  productKeys.map( key => <th key={key} onClick={ e => changeSortState(key) } className={ sort.key == key ? styles.SelectedCell : styles.CellHead } >
                     <div className={styles.row}>
                       { key }  
                       <div>
@@ -114,7 +114,7 @@ export const getServerSideProps : GetServerSideProps = async (context) =>{
       throw new Error('User token expired');
     }
     const response = await fetchProducts( query.page?.toString() || '1', query.limit?.toString() || '5', jwt );
-
+    console.log(response)
     const data = JSON.parse(JSON.stringify({ response }))
     return{ props: {
       data : data.response
