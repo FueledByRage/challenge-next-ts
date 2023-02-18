@@ -1,0 +1,18 @@
+@use '../../styles/abstracts/containers.scss' as containers ;
+
+.Pages{
+    @include containers.row;
+    width: 80px;
+    background: re;
+    align-items: center;
+    justify-content: space-between;  
+}
+
+.Page{
+    font-size: 18px;
+    color: rgb(108, 174, 226);
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}

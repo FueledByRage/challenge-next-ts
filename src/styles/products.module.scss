@@ -1,0 +1,68 @@
+@use './abstracts/containers.scss' as containers;
+@use './abstracts/effects.scss' as effects;
+@use './abstracts/media.scss' as medias;
+
+.ProductsList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    min-height: 70vh;
+    width: 90%;
+}
+
+
+.Cell, .CellHead, .SelectedCell{
+    padding: 10px;
+    cursor: pointer;
+}
+
+.TableHead{
+    @include containers.row;
+    background: red;
+}
+
+.row{
+    @include containers.row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+}
+
+.triangle, .descTriangle{
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+}
+
+.descTriangle{
+    transform: rotate(180deg);
+}
+
+
+
+
+.CellHead, .SelectedCell{
+    justify-content: space-between;
+    border: 1px solid;
+    min-width: 100px;
+    align-items: center;
+    background: rgb(240, 240, 240);
+}
+
+.SelectedCell{
+    background: rgb(200, 200, 200);
+}
+
+.SelectorRow{
+    @include containers.row;
+    width: 48vw;
+    justify-content: space-between;
+    margin-top: 10%;
+    select{
+        padding: 5px 20px;
+    }
+}

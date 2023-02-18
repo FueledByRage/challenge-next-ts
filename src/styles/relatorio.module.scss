@@ -1,0 +1,42 @@
+@use './abstracts/containers.scss' as containers;
+@use './abstracts/effects.scss' as effects;
+@use './abstracts/media.scss' as medias;
+
+.ReportContainer{
+    @include containers.column;
+    @include effects.shadowBox;
+    align-items: center;
+    width: 60vw;
+    min-width: 400px;
+    height: 70vh;
+    background: #FFF;
+    border-radius: 8px;
+    padding: 50px;
+    button{
+        @include effects.shadowBox;
+        margin-right: 50px;
+        cursor: pointer;
+        width: 10vw;
+        min-width: 90px;
+        margin: auto;
+        height: 60px;
+        outline: none;
+        border: none;
+        border-radius: 8px;
+        background: rgb(108, 174, 226);    
+        color: #FFF;
+    }
+}
+
+.Data{
+    width: 100%;
+}
+
+.ReportData{
+    @include containers.row;
+    border-bottom: 1px solid silver;
+    width: 80%;
+    justify-content: space-between;
+    font-size: 20px;
+    padding: 10px;
+}
